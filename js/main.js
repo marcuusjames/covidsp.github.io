@@ -14,7 +14,7 @@ $.each(leitos,function(m,n){
             max_cases=parseInt(j.confirmed)
         }}
     })
-    data.push([n.Cod,conf,deaths])
+    data.push([n.Cod,conf,deaths,n.Qtd_existente])
         
 })
 console.log(SPdata)
@@ -35,15 +35,21 @@ Highcharts.mapChart('container', {
         },
 
         colorAxis: {
-            min: 0,
-            max: 30,       
+            min: 1,
+            max: 30,      
+            startOnTick: true, 
             minColor: '#ffe714',
-            maxColor: '#f61111'
+            maxColor: '#f61111',
+            stops: [
+                [0, '#f7f7f7'],
+                [0.01, '#fffbbc'],
+                [0.9, '#c4463a']
+            ]
         },
 
         series: [{
             data: data,
-            keys: ['Brasil_m_2', 'value','death'],
+            keys: ['Brasil_m_2', 'value','death','leitos'],
             joinBy: 'Brasil_m_2',
             name: 'Cases',
             states: {
@@ -53,7 +59,7 @@ Highcharts.mapChart('container', {
             },
             tooltip:{
                 headerFormat: '<span style="font-size:10px">{point.properties.Brasil_mun}</span><br/>',
-                pointFormat: '<b>{point.properties.Brasil_mun}<b><br/>Casos Comprovados: <b>{point.value:.0f}</b><br/>Obitos: <b>{point.death:.0f}</b><br/>',
+                pointFormat: '<b>{point.properties.Brasil_mun}<b><br/>Casos Comprovados: <b>{point.value:.0f}</b><br/>Obitos: <b>{point.death:.0f}</b><br/>Leitos: <b>{point.leitos:.0f}</b><br/>',
             },
             dataLabels: {
                 enabled: false,
