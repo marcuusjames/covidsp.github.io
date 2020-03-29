@@ -2,7 +2,8 @@
 console.log(cases)
 data = []
 max_cases = 0
-
+total_cases = 0
+total_deaths = 0
 $.each(leitos,function(m,n){
     conf = 0
     deaths = 0
@@ -10,6 +11,11 @@ $.each(leitos,function(m,n){
         if (j.city_ibge_code==n.Cod){
         conf = parseInt(j.confirmed)
         deaths = parseInt(j.deaths)
+        total_cases = total_cases+parseInt(j.confirmed)
+        total_deaths = total_deaths+parseInt(j.deaths)
+        console.log(total_cases)
+        $("#total_cases").text(total_cases)
+        $("#total_deaths").text(total_deaths)
         if (parseInt(j.confirmed)>max_cases){
             max_cases=parseInt(j.confirmed)
         }}
@@ -20,9 +26,10 @@ $.each(leitos,function(m,n){
 console.log(SPdata)
 Highcharts.mapChart('container', {
         chart: {
-            map: SPdata
+            map: SPdata,
+            backgroundColor: '#4b96af'
         },
-
+        exporting: { enabled: false },
         title: {
             text: 'COVID-19 - Sao Paulo - Brasil'
         },
